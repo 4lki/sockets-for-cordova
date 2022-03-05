@@ -10,7 +10,8 @@ You can also get information about this plugin from our blog post http://www.blo
 
 Install this plugin simply by:
 
-`cordova plugin add cz.blocshop.socketsforcordova`
+`cordova plugin add package de.4lki.socketsforcordova
+`
 
 or you can use GIT repository for most recent version:
 

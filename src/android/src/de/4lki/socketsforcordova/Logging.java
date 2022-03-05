@@ -14,7 +14,7 @@
  * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  */
-package cz.blocshop.socketsforcordova;
+package package de.4lki.socketsforcordova;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

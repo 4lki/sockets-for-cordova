@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cz.blocshop.socketsforcordova" version="1.1.0">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="package de.4lki.socketsforcordova
+" version="1.1.0">
     <name>SocketsForCordova</name>
     <description>
 		This Cordova plugin provides JavaScript API, that allows you to communicate with server through TCP protocol.
@@ -17,55 +18,21 @@
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="SocketsForCordova"> 
-                <param name="android-package" value="cz.blocshop.socketsforcordova.SocketPlugin"/>
+                <param name="android-package" value="package de.4lki.socketsforcordova
+.SocketPlugin"/>
             </feature>
         </config-file>
 		<config-file target="AndroidManifest.xml" parent="/manifest">
             <uses-permission android:name="android.permission.INTERNET" />
         </config-file>  
-		<source-file src="src/android/src/cz/blocshop/socketsforcordova/Logging.java" target-dir="src/cz/blocshop/socketsforcordova" />
-        <source-file src="src/android/src/cz/blocshop/socketsforcordova/Consumer.java" target-dir="src/cz/blocshop/socketsforcordova" />
-		<source-file src="src/android/src/cz/blocshop/socketsforcordova/SocketAdapter.java" target-dir="src/cz/blocshop/socketsforcordova" />
-		<source-file src="src/android/src/cz/blocshop/socketsforcordova/SocketAdapterImpl.java" target-dir="src/cz/blocshop/socketsforcordova" />
-		<source-file src="src/android/src/cz/blocshop/socketsforcordova/SocketAdapterOptions.java" target-dir="src/cz/blocshop/socketsforcordova" />
-		<source-file src="src/android/src/cz/blocshop/socketsforcordova/SocketPlugin.java" target-dir="src/cz/blocshop/socketsforcordova" />
+		<source-file src="src/android/src/de/4lki/socketsforcordova/Logging.java" target-dir="src/de/4lki/socketsforcordova" />
+        <source-file src="src/android/src/de/4lki/socketsforcordova/Consumer.java" target-dir="src/de/4lki/socketsforcordova" />
+		<source-file src="src/android/src/de/4lki/socketsforcordova/SocketAdapter.java" target-dir="src/de/4lki/socketsforcordova" />
+		<source-file src="src/android/src/de/4lki/socketsforcordova/SocketAdapterImpl.java" target-dir="src/de/4lki/socketsforcordova" />
+		<source-file src="src/android/src/de/4lki/socketsforcordova/SocketAdapterOptions.java" target-dir="src/de/4lki/socketsforcordova" />
+		<source-file src="src/android/src/de/4lki/socketsforcordova/SocketPlugin.java" target-dir="src/de/4lki/socketsforcordova" />
 		
     </platform>
-    
-    <!-- ios -->
-    <platform name="ios">    
-        <config-file target="config.xml" parent="/*">
-            <feature name="SocketsForCordova">
-                <param name="ios-package" value="SocketPlugin" />
-            </feature>
-        </config-file>
-
-        <header-file src="src/ios/SocketsForCordova/Classes/SocketPlugin.h" />
-	    <source-file src="src/ios/SocketsForCordova/Classes/SocketPlugin.m" />
-
-        <header-file src="src/ios/SocketsForCordova/Classes/SocketAdapter.h" />
-        <source-file src="src/ios/SocketsForCordova/Classes/SocketAdapter.m" />
-
-	    <!--<framework src="CoreGraphics.framework" />-->
-    </platform>
-
-
-    <!-- wp8 -->
-    <platform name="wp8">
-        <config-file target="config.xml" parent="/*">
-            <feature name="SocketsForCordova">
-                <param name="wp-package" value="Blocshop.ScoketsForCordova.SocketPlugin"/>
-            </feature>
-        </config-file>
-
-		<source-file src="src/wp8/src/SocketAdapter.cs" target-dir="src" />
-		<source-file src="src/wp8/src/SocketAdapterOptions.cs" target-dir="src" />
-		<source-file src="src/wp8/src/SocketExtensions.cs" target-dir="src" />
-		<source-file src="src/wp8/src/SocketPlugin.cs" target-dir="src" />
-		<source-file src="src/wp8/src/SocketEvent.cs" target-dir="src" />
-		<source-file src="src/wp8/src/SocketStorage.cs" target-dir="src" />
-    </platform>
-
-        
+            
 
 </plugin>

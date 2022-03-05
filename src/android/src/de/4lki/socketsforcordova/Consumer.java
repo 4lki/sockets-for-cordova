@@ -15,7 +15,7 @@
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-package cz.blocshop.socketsforcordova;
+package package de.4lki.socketsforcordova;
 
 public interface Consumer<T> {
     void accept(T t);

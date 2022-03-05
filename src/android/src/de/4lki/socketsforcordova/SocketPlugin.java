@@ -15,7 +15,7 @@
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-package cz.blocshop.socketsforcordova;
+package package de.4lki.socketsforcordova;
 
 import java.io.IOException;
 import java.util.ArrayList;

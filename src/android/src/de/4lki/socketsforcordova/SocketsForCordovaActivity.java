@@ -17,7 +17,7 @@
        under the License.
  */
 
-package cz.blocshop.socketsforcordova;
+package package de.4lki.socketsforcordova;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
