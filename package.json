@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alki/sockets-for-cordova.git"
+    "url": "git+https://github.com/4lki/sockets-for-cordova.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/alki/sockets-for-cordova/issues"
+    "url": "https://github.com/4lki/sockets-for-cordova/issues"
   },
-  "homepage": "https://github.com/alki/sockets-for-cordova#readme"
+  "homepage": "https://github.com/4lki/sockets-for-cordova#readme"
 }
