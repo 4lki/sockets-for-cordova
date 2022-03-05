@@ -1,5 +1,5 @@
 {
-  "name": "@4lki/sockets-for-cordova",
+  "name": "@alki/sockets-for-cordova",
   "version": "1.0.0",
   "description": "sockets-for-cordova =================== This Cordova plugin provides JavaScript API, that allows you to communicate with server through TCP protocol.",
   "main": "socket.js",
@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/4lki/sockets-for-cordova.git"
+    "url": "git+https://github.com/alki/sockets-for-cordova.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/4lki/sockets-for-cordova/issues"
+    "url": "https://github.com/alki/sockets-for-cordova/issues"
   },
-  "homepage": "https://github.com/4lki/sockets-for-cordova#readme"
+  "homepage": "https://github.com/alki/sockets-for-cordova#readme"
 }

@@ -17,7 +17,7 @@
        under the License.
  */
 
-package package de.4lki.socketsforcordova;
+package package de.alki.socketsforcordova;
 
 import android.os.Bundle;
 import org.apache.cordova.*;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="package de.4lki.socketsforcordova
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="package de.alki.socketsforcordova
 " version="1.1.0">
     <name>SocketsForCordova</name>
     <description>
@@ -18,18 +18,18 @@
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="SocketsForCordova"> 
-                <param name="android-package" value="de.4lki.socketsforcordova.SocketPlugin"/>
+                <param name="android-package" value="de.alki.socketsforcordova.SocketPlugin"/>
             </feature>
         </config-file>
 		<config-file target="AndroidManifest.xml" parent="/manifest">
             <uses-permission android:name="android.permission.INTERNET" />
         </config-file>  
-		<source-file src="src/android/src/de/4lki/socketsforcordova/Logging.java" target-dir="src/de/4lki/socketsforcordova" />
-        <source-file src="src/android/src/de/4lki/socketsforcordova/Consumer.java" target-dir="src/de/4lki/socketsforcordova" />
-		<source-file src="src/android/src/de/4lki/socketsforcordova/SocketAdapter.java" target-dir="src/de/4lki/socketsforcordova" />
-		<source-file src="src/android/src/de/4lki/socketsforcordova/SocketAdapterImpl.java" target-dir="src/de/4lki/socketsforcordova" />
-		<source-file src="src/android/src/de/4lki/socketsforcordova/SocketAdapterOptions.java" target-dir="src/de/4lki/socketsforcordova" />
-		<source-file src="src/android/src/de/4lki/socketsforcordova/SocketPlugin.java" target-dir="src/de/4lki/socketsforcordova" />
+		<source-file src="src/android/src/de/alki/socketsforcordova/Logging.java" target-dir="src/de/alki/socketsforcordova" />
+        <source-file src="src/android/src/de/alki/socketsforcordova/Consumer.java" target-dir="src/de/alki/socketsforcordova" />
+		<source-file src="src/android/src/de/alki/socketsforcordova/SocketAdapter.java" target-dir="src/de/alki/socketsforcordova" />
+		<source-file src="src/android/src/de/alki/socketsforcordova/SocketAdapterImpl.java" target-dir="src/de/alki/socketsforcordova" />
+		<source-file src="src/android/src/de/alki/socketsforcordova/SocketAdapterOptions.java" target-dir="src/de/alki/socketsforcordova" />
+		<source-file src="src/android/src/de/alki/socketsforcordova/SocketPlugin.java" target-dir="src/de/alki/socketsforcordova" />
 		
     </platform>
             

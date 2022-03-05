@@ -15,7 +15,7 @@
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-package de.4lki.socketsforcordova;
+package de.alki.socketsforcordova;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
