@@ -18,8 +18,7 @@
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="SocketsForCordova"> 
-                <param name="android-package" value="package de.4lki.socketsforcordova
-.SocketPlugin"/>
+                <param name="android-package" value="de.4lki.socketsforcordova.SocketPlugin"/>
             </feature>
         </config-file>
 		<config-file target="AndroidManifest.xml" parent="/manifest">
