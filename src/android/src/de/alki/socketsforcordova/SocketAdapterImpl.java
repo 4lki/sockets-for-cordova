@@ -81,7 +81,7 @@ public class SocketAdapterImpl implements SocketAdapter {
             @Override
             public void run() {
                 try {
-                    socket.setSoTimeout(1000*60*3);
+                    socket.setSoTimeout(10000);
                     socket.connect(new InetSocketAddress(host, port));
                     // socket.startHandshake();
                     invokeOpenEventHandler();
