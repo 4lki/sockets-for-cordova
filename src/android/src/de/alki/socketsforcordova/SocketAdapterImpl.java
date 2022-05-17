@@ -62,7 +62,7 @@ public class SocketAdapterImpl implements SocketAdapter {
         context.init(null, trustAllCerts, new java.security.SecureRandom());
         SSLSocketFactory factory = context.getSocketFactory();
         socket = (SSLSocket) factory.createSocket();
-        socket.setEnabledProtocols(new String[]{"TLS_v1_2"});
+        socket.setEnabledProtocols(new String[] {"TLSv1.2"});
         return socket;
       } catch (IOException | NoSuchAlgorithmException | KeyManagementException e) {
         Logging.Error(SocketAdapterImpl.class.getName(), "Error during connecting of socket", e.getCause());
