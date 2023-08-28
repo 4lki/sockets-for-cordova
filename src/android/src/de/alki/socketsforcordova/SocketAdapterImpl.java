@@ -180,7 +180,9 @@ public class SocketAdapterImpl implements SocketAdapter {
             invokeExceptionHandler(e.getMessage());
         } finally {
             try {
-                socket.close();
+                if(!socket.isClosed()){
+                    socket.close();
+                } 
             } catch (IOException e) {
             	Logging.Error(SocketAdapterImpl.class.getName(), "Error during closing of socket", e);
             } finally {
