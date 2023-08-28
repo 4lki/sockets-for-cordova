@@ -127,12 +127,12 @@ Socket.prototype.shutdownWrite = function (success, error) {
         [ this.socketKey ]);
 };
 
-Socket.prototype.close = function (success, error) {
+Socket.prototype.close = function (success, error, force = false) {
 
     success = success || function() { };
     error = error || function() { };
 
-    if (!this._ensureState(Socket.State.OPENED, error)) {
+    if (!force && !this._ensureState(Socket.State.OPENED, error)) {
         return;
     }
 
