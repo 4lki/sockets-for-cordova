@@ -17,6 +17,7 @@
 
 package de.alki.socketsforcordova;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
 import java.security.KeyManagementException;
@@ -44,8 +45,8 @@ public class SocketAdapterImpl implements SocketAdapter {
     private Consumer<String> errorEventHandler;
 
     private ExecutorService executor;
-
-    private SSLSocket createSocket(){
+    private volatile boolean isRunning = true;
+  private SSLSocket createSocket(){
       TrustManager[] trustAllCerts = new TrustManager[] {
         new X509TrustManager() {
           public java.security.cert.X509Certificate[] getAcceptedIssuers() {
@@ -82,7 +83,7 @@ public class SocketAdapterImpl implements SocketAdapter {
             @Override
             public void run() {
                 try {
-                    socket.setSoTimeout(2*60*1000);
+                    socket.setSoTimeout(60*1000);
                     socket.connect(new InetSocketAddress(host, port), 5000);
                     // socket.startHandshake();
                     invokeOpenEventHandler();
@@ -107,9 +108,10 @@ public class SocketAdapterImpl implements SocketAdapter {
 
     @Override
     public void close() throws IOException {
-    	this.invokeCloseEventHandler(false);
+    	  this.invokeCloseEventHandler(false);
         if(!this.socket.isClosed()){
     	    this.socket.close();
+          isRunning = false;
         }
     }
 
@@ -177,27 +179,30 @@ public class SocketAdapterImpl implements SocketAdapter {
         try {
         	runReadLoop();
         } catch (Throwable e) {
-        	Logging.Error(SocketAdapterImpl.class.getName(), "Error during reading of socket input stream", e);
+          if (!socket.isClosed()) {
+            Logging.Error(SocketAdapterImpl.class.getName(), "Error during reading of socket input stream", e);
             hasError = true;
             invokeExceptionHandler(e.getMessage());
+          }
         } finally {
-            try {
-                if(!socket.isClosed()){
-                    socket.close();
-                } 
-            } catch (IOException e) {
-            	Logging.Error(SocketAdapterImpl.class.getName(), "Error during closing of socket", e);
-            } finally {
-                invokeCloseEventHandler(hasError);
-            }
+          try{
+           this.close();
+          }catch(IOException e) {
+            invokeExceptionHandler(e.getMessage());
+          }
         }
     }
 
     private void runReadLoop() throws IOException {
         byte[] buffer = new byte[INPUT_STREAM_BUFFER_SIZE];
         int bytesRead = 0;
-
-        while ((bytesRead = socket.getInputStream().read(buffer)) >= 0) {
+        InputStream inputStream = socket.getInputStream();
+        while (isRunning) {
+          bytesRead = inputStream.read(buffer);
+          if (bytesRead == -1) {
+            // End of stream reached
+            break;
+          }
         	byte[] data = buffer.length == bytesRead
         			? buffer
         			: Arrays.copyOfRange(buffer, 0, bytesRead);
