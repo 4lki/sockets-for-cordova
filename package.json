@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/4lki/sockets-for-cordova/issues"
   },
-  "homepage": "https://github.com/4lki/sockets-for-cordova#readme"
+  "homepage": "https://github.com/4lki/sockets-for-cordova#readme",
+  "dependencies": {
+    "@types/node": "^20.11.20"
+  }
 }
