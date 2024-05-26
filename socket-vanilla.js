@@ -35,9 +35,9 @@ function Socket() {
   this.client = null;
 }
 
-Socket.prototype.open = (host, port, success, error) => {
+Socket.prototype.open = function (host, port, success, error){
   success = success || function () {};
-  error = error || function () {};
+
 
   if (!this._ensureState(Socket.State.CLOSED, error)) {
     return;
@@ -45,9 +45,9 @@ Socket.prototype.open = (host, port, success, error) => {
 
   this._state = Socket.State.OPENING;
 
-  const client = connect(port, host, {}, () => {
-    _that._state = Socket.State.OPENED;
+  const client = connect(port, host, {ca: {}, rejectUnauthorized: false}, () => {
     if (client.authorized) {
+      this._state = Socket.State.OPENED;
       success();
     } else {
       error("Error: " + client.authorizationError);
@@ -60,7 +60,7 @@ Socket.prototype.open = (host, port, success, error) => {
       data.toString().replace(/(\n)/gm, ""),
       data.length
     );
-    _that.onData(new Uint8Array(data));
+    this.onData(new Uint8Array(data));
   });
   client.on("close", () => {
     this._state = Socket.State.CLOSED;
@@ -75,10 +75,10 @@ Socket.prototype.open = (host, port, success, error) => {
     client.destroy();
   });
 
-  _that.client = client;
+  this.client = client;
 };
 
-Socket.prototype.write = (data, success, error) => {
+Socket.prototype.write = function (data, success, error) {
   success = success || function () {};
   error = error || function () {};
 
@@ -98,7 +98,7 @@ Socket.prototype.write = (data, success, error) => {
   });
 };
 
-Socket.prototype.shutdownWrite = (success, error) => {
+Socket.prototype.shutdownWrite = function (success, error) {
   success = success || function () {};
   error = error || function () {};
 
@@ -115,7 +115,7 @@ Socket.prototype.shutdownWrite = (success, error) => {
   });
 };
 
-Socket.prototype.close = (success, error, force = false) => {
+Socket.prototype.close = function (success, error, force = false) {
   success = success || function () {};
   error = error || function () {};
 
@@ -137,7 +137,7 @@ Object.defineProperty(Socket.prototype, "state", {
   configurable: true,
 });
 
-Socket.prototype._ensureState = (requiredState, errorCallback) => {
+Socket.prototype._ensureState = function (requiredState, errorCallback) {
   var state = this._state;
   if (state != requiredState) {
     window.setTimeout(function () {
