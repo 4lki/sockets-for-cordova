@@ -60,8 +60,9 @@ public class SocketPlugin extends CordovaPlugin {
 		String socketKey = args.getString(0);
 		String host = args.getString(1);
 		int port = args.getInt(2);
+		boolean ssl = args.getBoolean(3);
 
-		SocketAdapter socketAdapter = new SocketAdapterImpl();
+		SocketAdapter socketAdapter = new SocketAdapterImpl(ssl);
 		socketAdapter.setCloseEventHandler(new CloseEventHandler(socketKey));
 		socketAdapter.setDataConsumer(new DataConsumer(socketKey));
 		socketAdapter.setErrorEventHandler(new ErrorEventHandler(socketKey));

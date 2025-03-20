@@ -15,7 +15,8 @@
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-const { connect } = require("tls");
+const { connectTLS: connect } = require("tls");
+const { connect } = require("net");
 
 var SOCKET_EVENT = "SOCKET_EVENT";
 var CORDOVA_SERVICE_NAME = "SocketsForCordova";
@@ -35,9 +36,8 @@ function Socket() {
   this.client = null;
 }
 
-Socket.prototype.open = function (host, port, success, error){
+Socket.prototype.open = function (host, port, tls = false, success, error) {
   success = success || function () {};
-
 
   if (!this._ensureState(Socket.State.CLOSED, error)) {
     return;
@@ -45,21 +45,30 @@ Socket.prototype.open = function (host, port, success, error){
 
   this._state = Socket.State.OPENING;
 
-  const client = connect(port, host, {ca: {}, rejectUnauthorized: false}, () => {
-    if (client.authorized) {
+  let client;
+  if (tls) {
+    client = connectTLS(
+      port,
+      host,
+      { ca: "", rejectUnauthorized: false },
+      () => {
+        if (client.authorized) {
+          this._state = Socket.State.OPENED;
+          success();
+        } else {
+          error("Error: " + client.authorizationError);
+        }
+      }
+    );
+  } else {
+    client = connect(port, host, { rejectUnauthorized: false }, () => {
       this._state = Socket.State.OPENED;
       success();
-    } else {
-      error("Error: " + client.authorizationError);
-    }
-  });
+    });
+  }
 
   client.on("data", (data) => {
-    console.log(
-      "Received: %s [it is %d bytes long]",
-      data.toString().replace(/(\n)/gm, ""),
-      data.length
-    );
+    console.log("Received: %s [it is %d bytes long]", data, data.length);
     this.onData(new Uint8Array(data));
   });
   client.on("close", () => {
@@ -86,10 +95,7 @@ Socket.prototype.write = function (data, success, error) {
     return;
   }
 
-  var dataToWrite =
-    data instanceof Uint8Array ? Socket._copyToArray(data) : data;
-
-  this.client.write(dataToWrite, (err) => {
+  this.client.write(data, (err) => {
     if (err) {
       error();
     } else {
