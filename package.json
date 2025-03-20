@@ -1,6 +1,6 @@
 {
   "name": "@alki/sockets-for-cordova",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "sockets-for-cordova =================== This Cordova plugin provides JavaScript API, that allows you to communicate with server through TCP protocol.",
   "main": "socket.js",
   "scripts": {
