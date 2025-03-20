@@ -46,35 +46,47 @@ public class SocketAdapterImpl implements SocketAdapter {
 
     private ExecutorService executor;
     private volatile boolean isRunning = true;
-  private SSLSocket createSocket(){
-      TrustManager[] trustAllCerts = new TrustManager[] {
-        new X509TrustManager() {
-          public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-            return null;
-          }
-          public void checkClientTrusted(X509Certificate[] certs, String authType) {
-          }
-          public void checkServerTrusted(X509Certificate[] certs, String authType) {
-          }
-        }
-      };
-      try {
-        SSLContext context = SSLContext.getInstance("TLS");
-        context.init(null, trustAllCerts, new java.security.SecureRandom());
-        SSLSocketFactory factory = context.getSocketFactory();
-        socket = (SSLSocket) factory.createSocket();
-        socket.setEnabledProtocols(new String[] {"TLSv1.2"});
-        return socket;
-      } catch (IOException | NoSuchAlgorithmException | KeyManagementException e) {
-        Logging.Error(SocketAdapterImpl.class.getName(), "Error during connecting of socket", e.getCause());
-        invokeOpenErrorEventHandler(e.getMessage());
-      }
-      return null;
-    }
-    public SocketAdapterImpl() {
-      socket = createSocket();
+    private boolean useSSL = true; // Flag to determine if SSL should be used
 
-      this.executor = Executors.newSingleThreadExecutor();
+    private Socket createSocket() {
+        if (this.useSSL) {
+            TrustManager[] trustAllCerts = new TrustManager[] {
+                new X509TrustManager() {
+                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                        return null;
+                    }
+                    public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                    }
+                    public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                    }
+                }
+            };
+            try {
+                SSLContext context = SSLContext.getInstance("TLS");
+                context.init(null, trustAllCerts, new java.security.SecureRandom());
+                SSLSocketFactory factory = context.getSocketFactory();
+                SSLSocket sslSocket = (SSLSocket) factory.createSocket();
+                sslSocket.setEnabledProtocols(new String[] {"TLSv1.2"});
+                return sslSocket;
+            } catch (IOException | NoSuchAlgorithmException | KeyManagementException e) {
+                Logging.Error(SocketAdapterImpl.class.getName(), "Error during connecting of socket", e.getCause());
+                invokeOpenErrorEventHandler(e.getMessage());
+            }
+        } else {
+            try {
+                return new java.net.Socket();
+            } catch (IOException e) {
+                Logging.Error(SocketAdapterImpl.class.getName(), "Error during connecting of socket", e.getCause());
+                invokeOpenErrorEventHandler(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    public SocketAdapterImpl(boolean useSSL) {
+        this.useSSL = useSSL;
+        socket = createSocket();
+        this.executor = Executors.newSingleThreadExecutor();
     }
 
     @Override
