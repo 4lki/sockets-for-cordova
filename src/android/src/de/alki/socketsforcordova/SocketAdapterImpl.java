@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
+import java.net.Socket;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
@@ -37,7 +38,7 @@ import javax.net.ssl.X509TrustManager;
 public class SocketAdapterImpl implements SocketAdapter {
 
     private final int INPUT_STREAM_BUFFER_SIZE = 16 * 1024;
-    private SSLSocket socket;
+    private Socket socket;
     private Consumer<Void> openEventHandler;
     private Consumer<String> openErrorEventHandler;
     private Consumer<byte[]> dataConsumer;
@@ -74,8 +75,8 @@ public class SocketAdapterImpl implements SocketAdapter {
             }
         } else {
             try {
-                return new java.net.Socket();
-            } catch (IOException e) {
+                return new Socket();
+            } catch (Exception e) {
                 Logging.Error(SocketAdapterImpl.class.getName(), "Error during connecting of socket", e.getCause());
                 invokeOpenErrorEventHandler(e.getMessage());
             }
@@ -85,7 +86,7 @@ public class SocketAdapterImpl implements SocketAdapter {
 
     public SocketAdapterImpl(boolean useSSL) {
         this.useSSL = useSSL;
-        socket = createSocket();
+        this.socket = createSocket();
         this.executor = Executors.newSingleThreadExecutor();
     }
 
