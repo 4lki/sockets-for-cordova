@@ -34,7 +34,7 @@ function Socket() {
   this.socketKey = guid();
 }
 
-Socket.prototype.open = function (host, port, ssl = true, success, error) {
+Socket.prototype.open = function (host, port, ssl, success, error) {
   success = success || function () {};
   error = error || function () {};
 
