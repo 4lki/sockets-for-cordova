@@ -35,8 +35,8 @@ function Socket() {
 }
 
 Socket.prototype.open = function (host, port, ssl, success, error) {
-  success = success || function () {};
-  error = error || function () {};
+  success = success || function () { };
+  error = error || function () { };
 
   if (!this._ensureState(Socket.State.CLOSED, error)) {
     return;
@@ -66,9 +66,9 @@ Socket.prototype.open = function (host, port, ssl, success, error) {
       default:
         console.error(
           "SocketsForCordova: Unknown event type " +
-            payload.type +
-            ", socket key: " +
-            payload.socketKey
+          payload.type +
+          ", socket key: " +
+          payload.socketKey
         );
         break;
     }
@@ -88,13 +88,13 @@ Socket.prototype.open = function (host, port, ssl, success, error) {
     },
     CORDOVA_SERVICE_NAME,
     "open",
-    [this.socketKey, host, port]
+    [this.socketKey, host, port, ssl]
   );
 };
 
 Socket.prototype.write = function (data, success, error) {
-  success = success || function () {};
-  error = error || function () {};
+  success = success || function () { };
+  error = error || function () { };
 
   if (!this._ensureState(Socket.State.OPENED, error)) {
     return;
@@ -110,8 +110,8 @@ Socket.prototype.write = function (data, success, error) {
 };
 
 Socket.prototype.shutdownWrite = function (success, error) {
-  success = success || function () {};
-  error = error || function () {};
+  success = success || function () { };
+  error = error || function () { };
 
   if (!this._ensureState(Socket.State.OPENED, error)) {
     return;
@@ -121,8 +121,8 @@ Socket.prototype.shutdownWrite = function (success, error) {
 };
 
 Socket.prototype.close = function (success, error, force = false) {
-  success = success || function () {};
-  error = error || function () {};
+  success = success || function () { };
+  error = error || function () { };
 
   if (!force && !this._ensureState(Socket.State.OPENED, error)) {
     return;
@@ -204,7 +204,7 @@ if (navigator.userAgent.match(/iemobile/i)) {
       function (errorMessage) {
         console.error(
           "SocketsForCordova: Cannot register WP event dispatcher, Error: " +
-            errorMessage
+          errorMessage
         );
       },
       CORDOVA_SERVICE_NAME,
